@@ -168,6 +168,7 @@
 %    #3: Institution
 %    #4: Description (optional: pass an empty string as {})
     \item%
+    \normalsize%  % Force normal size text
     \textbf{#1} {(#2)}\newline%
     {#3}%
     \ifthenelse{\equal{#4}{}}{%
