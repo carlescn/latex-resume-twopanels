@@ -13,13 +13,22 @@
 % Parse options
 %--------------------------------------------------------------------------------%
 
-% If option "color" is passed, name and titles will be in contrasting color
 \RequirePackage{ifthen}
+
+% If option "color" is passed, name and titles will be in contrasting color
 \newboolean{usecolor}
 \setboolean{usecolor}{False}
 \DeclareOption{color}{
     \setboolean{usecolor}{True}
 }
+
+% If option "nophoto" is passed, the header won't contain a picture
+\newboolean{nophoto}
+\setboolean{nophoto}{False}
+\DeclareOption{nophoto}{
+    \setboolean{nophoto}{True}
+}
+
 \ProcessOptions\relax
 
 
@@ -139,10 +148,15 @@
 %    #1: Name
 %    #2: Job
 %    #3: Image file
-    \begin{minipage}[t][\topheight][b]{\leftwidth}%
-        \centering%
-        \includegraphics[width=3cm]{#3}%
-    \end{minipage}%
+    % Don't show a photo if option “nophoto” was passed
+    \ifthenelse{\boolean{nophoto}}{%
+        % Nothing
+    }{%
+        \begin{minipage}[t][\topheight][b]{\leftwidth}%
+            \centering%
+            \includegraphics[width=3cm]{#3}%
+        \end{minipage}%
+    }%
     & %
     \begin{minipage}[t][\topheight][c]{\rightwidth}%
         {\color{color}%
